@@ -169,9 +169,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             case "bubble_list": {
                 if (!args)
                     throw new Error('Arguments are undefined');
-                const result = await bubbleService.list(args.dataType, {
-                    limit: args.limit,
-                    cursor: args.cursor,
+                const result = await bubbleService.list(args.dataType as string, {
+                    limit: args.limit as number | undefined,
+                    cursor: args.cursor as number | undefined,
                 });
                 return {
                     content: [
@@ -185,7 +185,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             case "bubble_get": {
                 if (!args)
                     throw new Error('Arguments are undefined');
-                const result = await bubbleService.get(args.dataType, args.id);
+                const result = await bubbleService.get(args.dataType as string, args.id as string);
                 return {
                     content: [
                         {
@@ -198,7 +198,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             case "bubble_create": {
                 if (!args)
                     throw new Error('Arguments are undefined');
-                const result = await bubbleService.create(args.dataType, args.data);
+                const result = await bubbleService.create(args.dataType as string, args.data as Record<string, any>);
                 return {
                     content: [
                         {
@@ -211,7 +211,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             case "bubble_update": {
                 if (!args)
                     throw new Error('Arguments are undefined');
-                const result = await bubbleService.update(args.dataType, args.id, args.data);
+                const result = await bubbleService.update(args.dataType as string, args.id as string, args.data as Record<string, any>);
                 return {
                     content: [
                         {
@@ -224,7 +224,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             case "bubble_delete": {
                 if (!args)
                     throw new Error('Arguments are undefined');
-                const result = await bubbleService.delete(args.dataType, args.id);
+                const result = await bubbleService.delete(args.dataType as string, args.id as string);
                 return {
                     content: [
                         {
@@ -237,7 +237,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             case "bubble_workflow": {
                 if (!args)
                     throw new Error('Arguments are undefined');
-                const result = await bubbleService.executeWorkflow(args.workflowName, args.data || {});
+                const result = await bubbleService.executeWorkflow(args.workflowName as string, (args.data as Record<string, any>) || {});
                 return {
                     content: [
                         {
